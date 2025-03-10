@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.5em;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            cursor: pointer; /* 設置為可點擊 */
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var table = document.querySelector('table');
+            var timeHeader = document.querySelector('th');
+
+            timeHeader.addEventListener('click', function() {
+                var rows = Array.from(table.tBodies[0].rows); // 獲取表格的所有行
+                rows.reverse(); // 反轉行的順序
+                rows.forEach(function(row) {
+                    table.tBodies[0].appendChild(row); // 將反轉後的行重新添加到表格中
+                });
+            });
+        };
+    </script>
+</head>
+<body>
+    <h1>Game Results</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Time</th>
+                <th>Player</th>
+                <th>Banker</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in result %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

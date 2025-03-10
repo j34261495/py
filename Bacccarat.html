@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Baccarat Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 95vh;
+            flex-direction: column;
+            text-align: center;
+			background-image: url("static/pokers/r1.png");
+            background-size: cover;
+			
+        }
+
+        h1, h2, h3, p, li {
+            font-size: 2em;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+			line-height: 1.0;
+        }
+		
+		h3 {
+		margin-top: 0; 
+		margin-bottom: 10px;
+		}
+
+        .image-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+		img {
+      width: 105px;
+      height: 150px;
+      transition: opacity 0.5s ease-out;
+    }
+    </style>
+</head>
+<body>
+
+
+  
+
+
+    <h1>Baccarat Game</h1>
+
+    <div class="container">
+        <div class="column">
+            <h2>Player's Hand:</h2>
+            <div class="image-container">
+                <img id="image1" src="{{ url_for('static', filename=image_path) }}" alt=" ">
+                <img id="image2" src="{{ url_for('static', filename=image_path2) }}" alt=" ">
+                <img id="image3" src="{{ url_for('static', filename=image_path3) }}" alt=" ">
+            </div>
+			
+			
+			
+            <ul>
+                {% for card in result.player_hand %}
+                    <li>{{ card}}</li>
+                {% endfor %}
+            </ul>
+            <p>Player's Score: {{ result.player_score }}</p>
+        </div>
+		
+		
+
+        <div class="column">
+            <h2>Banker's Hand:</h2>
+            <div class="image-container">
+                <img id="image4" src="{{ url_for('static', filename=image_path4) }}" alt=" ">
+                <img id="image5" src="{{ url_for('static', filename=image_path5) }}" alt=" ">
+                <img id="image6" src="{{ url_for('static', filename=image_path6) }}" alt=" ">
+            </div>
+            <ul>
+                {% for card in result.banker_hand %}
+                    <li>{{ card }}</li>
+                {% endfor %}
+            </ul>
+            <p>Banker's Score: {{ result.banker_score }}</p>
+        </div>
+    </div>
+	
+	
+	
+
+    <h3>Result: {{ result.result }}</h3>
+
+    
+
+
+    <button onclick="changeImage()" style="min-width: 150px; min-height: 40px; font-size: 1.2em;">Again</button>
+
+
+			
+			<script>
+    var image1 = document.getElementById('image1');
+    var image2 = document.getElementById('image2');
+	var image3 = document.getElementById('image3');
+	var image4 = document.getElementById('image4');
+	var image5 = document.getElementById('image5');
+	var image6 = document.getElementById('image6');
+    
+    var images1 = [
+      'static/pokers/b.jpg',
+      '{{ url_for('static', filename=image_path) }}'
+    ];
+    
+    var images2 = [
+      'static/pokers/b.jpg',
+      '{{ url_for('static', filename=image_path2) }}'
+    ];
+	var images3 = [
+      'static/pokers/b.jpg',
+      '{{ url_for('static', filename=image_path3) }}'
+    ];
+	var images4 = [
+      'static/pokers/b.jpg',
+      '{{ url_for('static', filename=image_path4) }}'
+    ];
+	var images5 = [
+      'static/pokers/b.jpg',
+      '{{ url_for('static', filename=image_path5) }}'
+    ];
+	var images6 = [
+      'static/pokers/b.jpg',
+      '{{ url_for('static', filename=image_path6) }}'
+    ];
+    
+    var currentImageIndex = 0;
+    
+    function changeImage() {
+	
+		
+      image1.style.opacity = 0;
+      image2.style.opacity = 0;
+	  image3.style.opacity = 0;
+	  image4.style.opacity = 0;
+	  image5.style.opacity = 0;
+	  image6.style.opacity = 0;
+      
+      setTimeout(function() {
+        image1.src = images1[currentImageIndex];
+        image2.src = images2[currentImageIndex];
+		image3.src = images3[currentImageIndex];
+        image4.src = images4[currentImageIndex];
+		image5.src = images5[currentImageIndex];
+        image6.src = images6[currentImageIndex];
+        
+        image1.style.opacity = 1;
+        image2.style.opacity = 1;
+		image3.style.opacity = 1;
+        image4.style.opacity = 1;
+		image5.style.opacity = 1;
+        image6.style.opacity = 1;
+        
+        currentImageIndex = (currentImageIndex + 1) % images1.length;
+		
+      }, 500);
+	  setTimeout(function() {
+            location.reload();
+        }, 1150);
+    }
+  </script>
+</body>
+</html>
